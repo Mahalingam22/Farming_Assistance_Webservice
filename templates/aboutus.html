@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block navbar %}
+	{% if user %}
+		{% include "navbar_after_login.html" %}
+	{% else %}
+		{% include "navbar_before_login.html" %}
+	{% endif %}
+
+{% endblock navbar %}
+
+{% block content %}
+	<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="caption">
+						<h2 align="center">About this site</h2>
+						<br><br>
+
+						<div class="col-lg-6 col-lg-offset-3" align="justify">
+							<img src="{% static 'images/headermcetcse.png' %}" style="width:100%;" alt="">
+							<br><br>
+							<p>This site has been developed as a part of <b>Innovative and Creative project course</b> offered in 7th semester  </p>
+							<br>
+							<p>Name of the student: <b>Mahalingam k (18BCS053), BE-CSE , MCET-POLLACHI</b></p>
+							<p>Name of the supervisor: <b>Mr. R. Muralidharan, AP/CSE </b></p>
+							<br>
+							<p>Any queries can be sent to <b>mahalingamk2468@gmail.com</b></p>
+						</div>
+						
+					</div>
+
+				</div>
+				
+			</div>
+	
+	</div>
+	
+{% endblock content %}

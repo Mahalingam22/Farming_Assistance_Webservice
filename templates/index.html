@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block navbar %}
+	{% if user %}
+		{% include "navbar_after_login.html" %}
+	{% else %}
+		{% include "navbar_before_login.html" %}
+	{% endif %}
+
+{% endblock navbar %}
+
+{% block content %}
+	<div class="container">
+	
+	{% if user %}
+		<div class="row">
+			{% if user_class == 'F' %}
+						<div class="col-lg-6">
+			{% else %}
+				<div class="col-lg-4">
+			{% endif %}
+				<ul class="list-group menu">
+					<li class="list-group-item" align="center">Posts and Crops</li>
+					<a href="/posts/create"><li class="list-group-item">Create a new post</li></a>
+					{% if user_class == 'F' %}
+						<a href="/crops/register"><li class="list-group-item">Register a new crop</li></a>
+						<a href="/crops/view"><li class="list-group-item">View your crops</li></a>
+					{% else %}
+						<a href="#"><li class="list-group-item"><strike>Register a new crop</strike></li></a>
+						<a href="#"><li class="list-group-item"><strike>View your crops</strike></li></a>
+					{% endif %}
+					
+					
+				</ul>
+				
+			</div>
+			{% if user_class == 'E' %}
+				<div class="col-lg-4">
+					<ul class="list-group menu">
+						<li class="list-group-item" align="center">search</li>
+						<a href="/query/1"><li class="list-group-item">Search for some farmer</li></a>
+						<a href="/query/2"><li class="list-group-item">Find some post</li></a>
+						<a href="/query/3"><li class="list-group-item">Find some crop</li></a>
+					</ul>
+				</div>
+				<div class="col-lg-4">
+					<ul class="list-group menu">
+						<li class="list-group-item" align="center">Information</li>
+						<a href="/query/4"><li class="list-group-item">View farmers of your location</li></a>
+						<a href="/query/5"><li class="list-group-item">View infected crops</li></a>
+						<a href="/query/6"><li class="list-group-item">See nutrients and associated fertilizers</li></a>
+					</ul>
+				</div>
+			{% else %}
+				<div class="col-lg-6">
+				<ul class="list-group menu">
+					<li class="list-group-item" align="center">search</li>
+					<a href="/query/1"><li class="list-group-item">Search for some farmer</li></a>
+					<a href="/query/2"><li class="list-group-item">Find some post</li></a>
+					<a href="/query/3"><li class="list-group-item">Find some crop</li></a>
+				</ul>
+				</div>
+			{% endif %}
+			
+
+		</div>
+	{% else %}
+		<div class="jumbotron">
+		<h1>Welcome to Farmers' Portal</h1>
+		<p>A web portal to connect farmers and experts.
+		<ul>
+		    <li>Being a farmer, register your crops, maintain your crops, search for other farmers, etc.</li>
+		    <li>Being an expert, study infected crops, know what other farmers are growing, advice farmers, etc.</li>
+		    <li>Create posts and talk to farmers / experts.</li>
+		</ul>
+		</p>
+		<p><a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a> <a class="btn btn-primary btn-lg" href="/signup" role="button">Register</a></p>
+		</div>
+	{% endif %}
+
+	
+	<h1 class="heading">P O S T S</h1>
+	<div class="row" align="center">
+		{% for obj in all_posts %}
+			<div class="col-lg-4">
+			<div class="panel panel-default">
+				
+				{% if obj.author_expert_id %}
+					<div class="panel-heading" style="background: url('{% static 'images/post_head_expert_back.jpg' %}') repeat;"><b>EXPERT'S POST</b></div>
+				{% else %}
+					<div class="panel-heading" ><b>FARMER'S POST</b></div>
+				{% endif %}
+				<div class="panel-body">
+					<a href="{% url 'post:detail' id=obj.post_id %}"><img src="/media/{{obj.image}}" alt="No image uploaded" style="width: 80%; height: 180px"></a>
+					<div class="caption">
+						<p align="center"> Posted {{ obj.timestamp|timesince }} ago </p>
+						<h4 align="center">{{ obj.title }}</h4>
+						<!-- <p align="justify">{{ obj.description|linebreaks|truncatechars:80 }}</p> -->
+						<p align="center"><a href="{% url 'post:detail' id=obj.post_id %}" class="btn btn-primary" role="button">View Post</a></p>
+					</div>
+				</div>
+			</div>
+			</div>
+			{% cycle "" "" "</div><div class='row'>" %}
+		{% endfor %}
+	</div>
+	
+	</div>
+	
+{% endblock content %}

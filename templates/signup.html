@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container siteForm">
+		<h2 class="heading">SIGN UP HERE</h2>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form role="form" action="/signup/" method="post">{% csrf_token %}
+					<div class="form-group">
+						<input class="form-control" type="text" name="user_name" required="True" placeholder="Your Name">
+					</div>
+		            <div class="form-group" style="text-align:center;">
+					 <label for="category"><br>Are you a farmer or an expert?</label>
+					  <select class="form-control" id="category" name="user_category">
+					    <option>Farmer</option>
+					    <option>Expert</option>
+					  </select>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="email" name="user_email" required="True" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" name="user_passwd" required="True" placeholder="Password">
+					</div>
+					<div class="form-group" >
+						<input class="form-control " type="number" name="user_contact" required="True" placeholder="Contact Number">
+					</div>
+				
+					<div class="form-group">
+						<input class="form-control" name="user_city" required="True" placeholder="City"> 
+					</div>
+					<div class="form-group">
+						<input class="form-control" name="user_state" required="True" placeholder="State"> 
+					</div>
+					<div class="buttonAlign">
+						<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+
+	</div>
+	<br>
+	
+{% endblock content %}
