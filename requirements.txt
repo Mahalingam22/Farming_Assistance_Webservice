@@ -1,5 +1,5 @@
 Django==1.11.5
-python==2.7.4
+python==2.7.14
 Pillow==4.3.0
 argparse==1.2.1
 bcrypt==3.1.4
